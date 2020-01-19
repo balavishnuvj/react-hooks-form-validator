@@ -1,0 +1,37 @@
+{
+  "name": "react-hooks-form-validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/react-hooks-form-validator.cjs.js",
+  "module": "dist/react-hooks-form-validator.es.js",
+  "scripts": {
+    "build": "rollup --config",
+    "test": "jest"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "babel-jest": "^24.9.0",
+    "babel-preset-react": "^6.24.1",
+    "jest": "^24.9.0",
+    "react-test-renderer": "^16.12.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
+  "dependencies": {
+    "fastest-validator": "0.6.19"
+  }
+}
