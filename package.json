@@ -1,7 +1,7 @@
 {
   "name": "react-hooks-form-validator",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "One react hook for all your form validations",
   "main": "dist/react-hooks-form-validator.cjs.js",
   "module": "dist/react-hooks-form-validator.es.js",
   "scripts": {
@@ -11,8 +11,22 @@
   "files": [
     "dist/*"
   ],
-  "keywords": [],
-  "author": "",
+  "repository": "https://github.com/balavishnuvj/react-hooks-form-validator.git",
+  "homepage": "https://github.com/balavishnuvj/react-hooks-form-validator",
+  "keywords": [
+    "react",
+    "react-native",
+    "use-form",
+    "hooks",
+    "form",
+    "forms",
+    "form-validation",
+    "form-validator",
+    "validation",
+    "validator",
+    "react-hooks"
+  ],
+  "author": "Balavishnu V J",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.3",
