@@ -12,7 +12,7 @@ export default {
     babel({
       exclude: "node_modules/**"
     }),
-    // terser()
+    terser()
   ],
   external: ["react"],
 
