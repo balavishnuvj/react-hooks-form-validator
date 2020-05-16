@@ -200,8 +200,8 @@ describe('Unit Test cases for use-form hook', () => {
         }),
       );
       await waitForNextUpdate();
-      expect(result.current[0].name.isValid).toBe(true);
-      expect(result.current[1].isValid).toBe(true);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
@@ -217,6 +217,37 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
     });
+    it('should validate field when empty value is set', async () => {
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useForm({
+          name: {
+            validationFns: [
+              (nameValue, formValues) => [
+                formValues.name && formValues.name.startsWith('a'),
+                'Is a required is required field, should start with a',
+              ],
+            ],
+          },
+        }),
+      );
+      await waitForNextUpdate();
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const correctText = 'aaa';
+      const incorrectText = '';
+      await act(async () => {
+        result.current[0].name.setValue(correctText);
+      });
+      expect(result.current[0].name.value).toBe(correctText);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectText);
+      });
+      expect(result.current[0].name.value).toBe(incorrectText);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+    });
     it('should validate field having async functions throws error', async () => {
       const { result, waitForNextUpdate } = renderHook(() =>
         useForm({
@@ -228,8 +259,8 @@ describe('Unit Test cases for use-form hook', () => {
         }),
       );
       await waitForNextUpdate();
-      expect(result.current[0].name.isValid).toBe(true);
-      expect(result.current[1].isValid).toBe(true);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
@@ -259,8 +290,8 @@ describe('Unit Test cases for use-form hook', () => {
         }),
       );
       await waitForNextUpdate();
-      expect(result.current[0].name.isValid).toBe(true);
-      expect(result.current[1].isValid).toBe(true);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
