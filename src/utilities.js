@@ -38,6 +38,23 @@ export async function getFieldError(formState, fieldName, formFieldConfig) {
     fieldName
   ];
   const fieldValue = formState[fieldName];
+  if (validationFns && validationFns.length) {
+    try {
+      const validationResults = await Promise.all(
+        validationFns.map((asyncValidationFn) =>
+          asyncValidationFn(formState[fieldName], formState),
+        ),
+      );
+      const [valid, errorMsg] = validationResults.find(
+        ([validationStatus]) => !validationStatus,
+      ) || [true];
+      if (!valid) {
+        return errorMsg || 'Invalid input';
+      }
+    } catch (error) {
+      return `Couldn't validate`;
+    }
+  }
   if (!required && !fieldValue) {
     return '';
   }
@@ -75,23 +92,6 @@ export async function getFieldError(formState, fieldName, formFieldConfig) {
     );
     if (failedRegex) {
       return failedRegex.errorMsg || `Required pattern doesn't match`;
-    }
-  }
-  if (validationFns && validationFns.length) {
-    try {
-      const validationResults = await Promise.all(
-        validationFns.map(async (asyncValidationFn) =>
-          asyncValidationFn(formState[fieldName], formState),
-        ),
-      );
-      const [valid, errorMsg] = validationResults.find(
-        ([validationStatus]) => !validationStatus,
-      ) || [true];
-      if (!valid) {
-        return errorMsg || 'Invalid input';
-      }
-    } catch (error) {
-      return `Couldn't validate`;
     }
   }
   return '';
