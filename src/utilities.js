@@ -41,7 +41,7 @@ export async function getFieldError(formState, fieldName, formFieldConfig) {
   if (validationFns && validationFns.length) {
     try {
       const validationResults = await Promise.all(
-        validationFns.map(async (asyncValidationFn) =>
+        validationFns.map((asyncValidationFn) =>
           asyncValidationFn(formState[fieldName], formState),
         ),
       );
