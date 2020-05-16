@@ -184,7 +184,8 @@ export default function useNewForm(fieldConfig) {
     );
     setFormErrors(() => {
       const errorWithoutMsg = {};
-      Object.entries(errorFields).forEach(([fieldName, errorState]) => {
+      Object.keys(errorFields).forEach((fieldName) => {
+        const errorState = errorFields[fieldName];
         errorWithoutMsg[fieldName] = {
           isValid: errorState.isValid,
         };
