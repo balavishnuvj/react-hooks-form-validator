@@ -13,6 +13,9 @@
 <p>Simple, extensible and config based form validation.</p>
 </div>
 
+**Small.** 9 KB (minified and gzipped).
+[Size Limit](https://github.com/ai/size-limit) controls the size.
+
 ## Table of Contents
 
 - [The problem](#the-problem)
@@ -261,7 +264,7 @@ Basic usage is like
 | addFieldConfig  | Dynamically add a field | `fn(fieldName, fieldConfig)` or `fn(fieldName, (formState)) => fieldConfig`| `formObject.addFieldConfig('useraname', { required: true })` or `formObject.addFieldConfig('useraname', (formState) => { required: !formState.email })` |
 | removeFieldConfig  | Dynamically remove a field | `fn(fieldName)`| `formObject.removeFieldConfig('useraname')`|
 | reset     | Resets the form config before adding or removing fields      |`() => {}` | |
-| config     | Current form config   |   `s{}`|
+| config     | Current form config   |   `{}`|
 
 ## LICENSE
 
