@@ -1,13 +1,9 @@
-import { getSchemaValidator } from './schema-validator'
+import { getSchemaValidator } from './schema-validator';
 import { PER_FIELD_SCHEMA, FIELD_CONFIG_SCHEMA } from './constants';
 
-const fieldSchemaValidator = getSchemaValidator(
-  FIELD_CONFIG_SCHEMA,
-);
+const fieldSchemaValidator = getSchemaValidator(FIELD_CONFIG_SCHEMA);
 
-const perFieldSchemaValidator = getSchemaValidator(
-  PER_FIELD_SCHEMA,
-);
+const perFieldSchemaValidator = getSchemaValidator(PER_FIELD_SCHEMA);
 
 export function getDefaultValues(formFieldConfig) {
   const defaultValues = {};
