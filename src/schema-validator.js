@@ -1,4 +1,4 @@
-import Validator from "fastest-validator";
+import Validator from 'fastest-validator';
 
 const validator = new Validator({
   messages: {
@@ -6,13 +6,13 @@ const validator = new Validator({
   },
 });
 
-validator.add("regex", function ({ messages }) {
+validator.add('regex', function ({ messages }) {
   return {
     source: `
           if (!(value instanceof RegExp))
               ${this.makeError({
-                type: "regex",
-                actual: "value",
+                type: 'regex',
+                actual: 'value',
                 messages,
               })}
 

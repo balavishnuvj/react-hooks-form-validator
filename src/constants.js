@@ -1,50 +1,50 @@
 const PER_FIELD_CONFIG = {
-  defaultValue: { type: "any", optional: true },
+  defaultValue: { type: 'any', optional: true },
   required: [
-    { type: "boolean", optional: true },
+    { type: 'boolean', optional: true },
     {
-      type: "object",
+      type: 'object',
       optional: true,
       props: {
-        errorMsg: { type: "string" },
+        errorMsg: { type: 'string' },
       },
     },
   ],
   min: [
-    { type: "number", optional: true, positive: true, integer: true },
+    { type: 'number', optional: true, positive: true, integer: true },
     {
-      type: "object",
+      type: 'object',
       optional: true,
       props: {
-        errorMsg: { type: "string" },
-        length: { type: "number", positive: true, integer: true },
+        errorMsg: { type: 'string' },
+        length: { type: 'number', positive: true, integer: true },
       },
     },
   ],
   max: [
-    { type: "number", optional: true, positive: true, integer: true },
+    { type: 'number', optional: true, positive: true, integer: true },
     {
-      type: "object",
+      type: 'object',
       optional: true,
       props: {
-        errorMsg: { type: "string" },
-        length: { type: "number", positive: true, integer: true },
+        errorMsg: { type: 'string' },
+        length: { type: 'number', positive: true, integer: true },
       },
     },
   ],
   patterns: {
-    type: "array",
+    type: 'array',
     items: {
-      type: "object",
+      type: 'object',
       props: {
-        regex: { type: "regex" },
-        errorMsg: { type: "string" },
+        regex: { type: 'regex' },
+        errorMsg: { type: 'string' },
       },
     },
     optional: true,
   },
-  validationFns: { type: "array", items: "function", optional: true },
-  extraInfo: { type: "any", optional: true },
+  validationFns: { type: 'array', items: 'function', optional: true },
+  extraInfo: { type: 'any', optional: true },
 };
 
 export const PER_FIELD_SCHEMA = {
@@ -55,9 +55,9 @@ export const PER_FIELD_SCHEMA = {
 export const FIELD_CONFIG_SCHEMA = {
   $$strict: true, // no additional properties allowed
   configs: {
-    type: "array",
+    type: 'array',
     items: {
-      type: "object",
+      type: 'object',
       props: PER_FIELD_CONFIG,
     },
   },
