@@ -8,7 +8,8 @@
     "build": "rollup --config",
     "lint": "eslint src/**",
     "prerelease": "yarn prettier:check && yarn test && yarn build && yarn size",
-    "release": "standard-version --dry-run -a",
+    "release": "standard-version -a",
+    "release:dry": "standard-version --dry-run -a",
     "size": "size-limit",
     "prettier:check": "prettier --check 'src/**/*.{js,mdx}'",
     "test": "jest"
