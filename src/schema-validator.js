@@ -6,7 +6,7 @@ const validator = new Validator({
   },
 });
 
-validator.add("regex", function ({ schema, messages }, path, context) {
+validator.add("regex", function ({ messages }) {
   return {
     source: `
           if (!(value instanceof RegExp))
