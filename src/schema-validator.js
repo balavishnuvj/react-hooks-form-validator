@@ -6,12 +6,6 @@ const validator = new Validator({
   },
 });
 
-// Register a custom 'regex' validator
-// validator.add("regex", (value) => {
-//   if (!(value instanceof RegExp))
-//     return validator.makeError("regex", null, value);
-//   return true;
-// });
 validator.add("regex", function ({ schema, messages }, path, context) {
   return {
     source: `
