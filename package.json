@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-form-validator",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "One react hook for all your form validations",
   "main": "dist/react-hooks-form-validator.cjs.js",
   "module": "dist/react-hooks-form-validator.es.js",
