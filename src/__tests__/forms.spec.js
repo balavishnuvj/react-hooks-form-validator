@@ -359,11 +359,23 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.value).toBe(text);
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
+      let returnedValue;
       await act(async () => {
-        await result.current[1].validate();
+        returnedValue = await result.current[1].validate();
       });
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+      expect(returnedValue).toMatchInlineSnapshot(`
+        Array [
+          true,
+          Object {
+            "name": Object {
+              "errorMsg": "",
+              "isValid": true,
+            },
+          },
+        ]
+      `);
     });
   });
   describe('Cases of use-form on demand config change', () => {

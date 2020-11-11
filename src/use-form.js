@@ -97,11 +97,12 @@ export default function useNewForm(fieldConfig) {
   );
 
   const validateForm = useCallback(async () => {
-    const [, errors] = await getFormErrors(
+    const [isValid, errors] = await getFormErrors(
       fieldConfigRef.current,
       formValuesAsRef.current,
     );
     setFormErrors(errors);
+    return [isValid, errors];
   }, []);
 
   const updateFieldConfig = useCallback(
