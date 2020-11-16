@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v3.0.1...v3.0.2) (2020-11-16)
+
+
+### Bug Fixes
+
+* undefined formErrors ([861629c](https://github.com/balavishnuvj/react-hooks-form-validator/commit/861629cb7e1f894f3849f50ba67b9ab81f9e0e79))
+
 ### [3.0.1](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v3.0.0...v3.0.1) (2020-11-11)
 
 
