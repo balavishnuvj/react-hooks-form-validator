@@ -228,10 +228,14 @@ export default function useNewForm(fieldConfig) {
           return formValues[fieldName];
         },
         get errorMsg() {
-          return formErrors[fieldName].errorMsg;
+          return formErrors[fieldName]?.errorMsg ?? '';
         },
         get isValid() {
-          return formErrors[fieldName].isValid;
+          /**
+           * Validation happens async, so there is a possibility that `formErrors[fieldName]` is not defined yet.
+           * So by default, for that duration isValid is false
+           */
+          return formErrors[fieldName]?.isValid ?? false;
         },
       };
     });
