@@ -4,5 +4,5 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest',
     '^.+\\.js?$': 'babel-jest',
   },
-  transformIgnorePatterns: ["node_modules", "lib"]
+  transformIgnorePatterns: ['node_modules', 'lib'],
 };

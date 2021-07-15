@@ -1,12 +1,12 @@
 module.exports = {
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         targets: {
-          browsers: ">0.25%"
-        }
-      }
-    ]
-  ]
+          browsers: '>0.25%',
+        },
+      },
+    ],
+  ],
 };
