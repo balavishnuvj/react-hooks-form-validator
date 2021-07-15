@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-form-validator",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "One react hook for all your form validations",
   "main": "dist/react-hooks-form-validator.cjs.js",
   "module": "dist/react-hooks-form-validator.es.js",
@@ -64,7 +64,7 @@
     "standard-version": "^8.0.0"
   },
   "peerDependencies": {
-    "react": "^16.12.0"
+    "react": "^17.0.2"
   },
   "dependencies": {
     "fastest-validator": "1.4.1"
@@ -83,7 +83,7 @@
   "size-limit": [
     {
       "path": "dist/react-hooks-form-validator.es.js",
-      "limit": "10 KB"
+      "limit": "25 KB"
     }
   ],
   "lint-staged": {
