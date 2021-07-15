@@ -6,6 +6,8 @@ module.exports = {
         targets: {
           browsers: '>0.25%',
         },
+        corejs: 3,
+        useBuiltIns: 'usage',
       },
     ],
   ],
