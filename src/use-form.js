@@ -34,6 +34,7 @@ export default function useNewForm(fieldConfig) {
   const setFieldError = useCallback((fieldName, errorMsg) => {
     setFormErrors((currentErrors) => {
       if (
+        !currentErrors[fieldName] ||
         currentErrors[fieldName].isValid !== !errorMsg ||
         currentErrors[fieldName].errorMsg !== errorMsg
       ) {
@@ -228,14 +229,18 @@ export default function useNewForm(fieldConfig) {
           return formValues[fieldName];
         },
         get errorMsg() {
-          return formErrors[fieldName]?.errorMsg ?? '';
+          return (
+            (formErrors[fieldName] && formErrors[fieldName].errorMsg) || ''
+          );
         },
         get isValid() {
           /**
            * Validation happens async, so there is a possibility that `formErrors[fieldName]` is not defined yet.
            * So by default, for that duration isValid is false
            */
-          return formErrors[fieldName]?.isValid ?? false;
+          return (
+            (formErrors[fieldName] && formErrors[fieldName].isValid) || false
+          );
         },
       };
     });
@@ -250,6 +255,13 @@ export default function useNewForm(fieldConfig) {
     validateFormFieldAndSetError,
   ]);
 
+  const formUpdater = useRef({
+    validateForm,
+    addFieldConfig,
+    removeFieldConfig,
+    reset: resetForm,
+  });
+
   const formsReturnValue = useMemo(
     () => ({
       isTouched: isFormTouched,
@@ -259,6 +271,7 @@ export default function useNewForm(fieldConfig) {
       removeFieldConfig,
       reset: resetForm,
       config: fieldConfigRef.current,
+      updater: formUpdater.current,
     }),
     [
       addFieldConfig,
