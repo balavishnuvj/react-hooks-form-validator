@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.2](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v5.0.1...v5.0.2) (2022-06-15)
+
+
+### Bug Fixes
+
+* build for test ([d6cc07a](https://github.com/balavishnuvj/react-hooks-form-validator/commit/d6cc07a95716b0a6e6e5182e13c67f06cce9c6cf))
+
 ### [5.0.1](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v5.0.0...v5.0.1) (2022-06-15)
 
 ## [5.0.0](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v3.1.0...v5.0.0) (2022-06-15)
