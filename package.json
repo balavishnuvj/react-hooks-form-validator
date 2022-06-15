@@ -2,8 +2,7 @@
   "name": "react-hooks-form-validator",
   "version": "3.1.0",
   "description": "One react hook for all your form validations",
-  "main": "dist/react-hooks-form-validator.cjs.js",
-  "module": "dist/react-hooks-form-validator.es.js",
+  "main": "index.js",
   "scripts": {
     "build": "rollup --config",
     "lint": "eslint src/**",
@@ -64,7 +63,7 @@
     "standard-version": "^8.0.0"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "17.0.2"
   },
   "dependencies": {
     "fastest-validator": "1.4.1"

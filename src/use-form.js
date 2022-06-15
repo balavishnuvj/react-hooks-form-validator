@@ -78,8 +78,8 @@ export default function useNewForm(fieldConfig) {
   );
 
   const validateFormFieldAndSetError = useCallback(
-    async (fieldName) => {
-      const fieldError = await getFieldError(
+    (fieldName) => {
+      const fieldError = getFieldError(
         formValuesAsRef.current,
         fieldName,
         fieldConfigRef.current,
@@ -97,8 +97,8 @@ export default function useNewForm(fieldConfig) {
     [setFieldValue, validateFormFieldAndSetError],
   );
 
-  const validateForm = useCallback(async () => {
-    const [isValid, errors] = await getFormErrors(
+  const validateForm = useCallback(() => {
+    const [isValid, errors] = getFormErrors(
       fieldConfigRef.current,
       formValuesAsRef.current,
     );
@@ -133,7 +133,7 @@ export default function useNewForm(fieldConfig) {
   );
 
   const addFieldConfig = useCallback(
-    async (fieldName, fieldConfigOrUpdater) => {
+    (fieldName, fieldConfigOrUpdater) => {
       const isFieldAlreadPresent = !!fieldConfigRef.current[fieldName];
       if (isFieldAlreadPresent) {
         const error = new Error(
@@ -155,7 +155,7 @@ export default function useNewForm(fieldConfig) {
     [setFieldValue, validateFieldAndSetErrorIfValueExists],
   );
 
-  const removeFieldConfig = useCallback(async (fieldName) => {
+  const removeFieldConfig = useCallback((fieldName) => {
     const isFieldAlreadPresent = !!fieldConfigRef.current[fieldName];
     if (!isFieldAlreadPresent) {
       // eslint-disable-next-line no-console
@@ -179,8 +179,8 @@ export default function useNewForm(fieldConfig) {
     return fieldConfigRef.current;
   }, []);
 
-  const setFormErrorWithoutMessages = useCallback(async () => {
-    const [, errorFields] = await getFormErrors(
+  const setFormErrorWithoutMessages = useCallback(() => {
+    const [, errorFields] = getFormErrors(
       fieldConfigRef.current,
       formValuesAsRef.current,
     );
@@ -235,7 +235,7 @@ export default function useNewForm(fieldConfig) {
         },
         get isValid() {
           /**
-           * Validation happens async, so there is a possibility that `formErrors[fieldName]` is not defined yet.
+           *
            * So by default, for that duration isValid is false
            */
           return (

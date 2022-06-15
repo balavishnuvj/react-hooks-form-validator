@@ -13,10 +13,9 @@ describe('Unit Test cases for use-form hook', () => {
   });
   describe('cases for automatic field validation', () => {
     it('should validate field having a required field', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { required: true } }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const text = 'sample';
@@ -28,7 +27,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a required custom required field', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
             required: { errorMsg: 'This is custom required error message' },
@@ -36,7 +35,6 @@ describe('Unit Test cases for use-form hook', () => {
           },
         }),
       );
-      await waitForNextUpdate();
       await act(async () => {
         await result.current[0].name.setValue('');
       });
@@ -54,10 +52,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a minimum length limit', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: { min: 5 } }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: { min: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const incorrectText = 'text';
@@ -76,14 +71,13 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a minimum length(custom error message)', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
             min: { length: 5, errorMsg: 'This is custom error message' },
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const incorrectText = 'text';
@@ -105,10 +99,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a maximum length limit', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: { max: 5 } }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: { max: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const incorrectText = 'superlongtext';
@@ -127,14 +118,13 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a maximum length limit(custom error message)', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
             max: { length: 5, errorMsg: 'This is custom error message' },
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const incorrectText = 'superlongtext';
@@ -156,7 +146,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having a patten match', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
             patterns: [
@@ -168,7 +158,6 @@ describe('Unit Test cases for use-form hook', () => {
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const incorrectText = 'bbb';
@@ -187,19 +176,16 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field having functions as validation', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
-            validationFns: [
-              (nameValue, formValues) => [
-                formValues.name && formValues.name.startsWith('a'),
-                'Should is required field',
-              ],
+            validate: (nameValue, formValues) => [
+              formValues.name && formValues.name.startsWith('a'),
+              'Should is required field',
             ],
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
@@ -218,19 +204,16 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should validate field when empty value is set', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({
           name: {
-            validationFns: [
-              (nameValue, formValues) => [
-                formValues.name && formValues.name.startsWith('a'),
-                'Is a required is required field, should start with a',
-              ],
+            validate: (nameValue, formValues) => [
+              formValues.name && formValues.name.startsWith('a'),
+              'Is a required is required field, should start with a',
             ],
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const correctText = 'aaa';
@@ -248,17 +231,16 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
     });
-    it('should validate field having async functions throws error', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+    it('should validate field having functions throws error', async () => {
+      const { result } = renderHook(() =>
         useForm({
           name: {
-            validationFns: [
-              jest.fn().mockRejectedValueOnce(new Error('Async error')),
-            ],
+            validate: jest.fn(() => {
+              new Error('Async error');
+            }),
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
@@ -276,20 +258,17 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
     });
-    it('should validate field having async functions as validation', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+    it('should validate field has a function as validation', async () => {
+      const { result } = renderHook(() =>
         useForm({
           name: {
-            validationFns: [
-              async (nameValue, formValues) => [
-                formValues.name && formValues.name.startsWith('a'),
-                'Should is required field',
-              ],
+            validate: (nameValue, formValues) => [
+              formValues.name && formValues.name.startsWith('a'),
+              'Should is required field',
             ],
           },
         }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'bbb';
@@ -308,10 +287,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should be able to manually set error on field', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const errorText = 'Invalid Field';
@@ -326,10 +302,9 @@ describe('Unit Test cases for use-form hook', () => {
 
   describe('Cases of use-form on demand validations', () => {
     it('validate field on demand', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { required: true } }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const text = 'sample';
@@ -346,10 +321,9 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('validate form on demand', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { required: true } }),
       );
-      await waitForNextUpdate();
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const text = 'sample';
@@ -380,10 +354,7 @@ describe('Unit Test cases for use-form hook', () => {
   });
   describe('Cases of use-form on demand config change', () => {
     it('should set error only if field has value', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       const text = 'sample';
@@ -400,10 +371,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should throw error  if field has invalid config', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
@@ -417,20 +385,14 @@ describe('Unit Test cases for use-form hook', () => {
   });
   describe('Cases for adding new field configuration', () => {
     it('should have field config added', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', () => ({}));
       });
       expect(result.current[0].newlyAddedField).toBeDefined();
     });
     it('should accept field config as object', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', {
           defaultValue: 'Hello',
@@ -440,23 +402,17 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].newlyAddedField.value).toBe('Hello');
     });
     it('should throw error field config already present', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       await act(async () => {
-        await expect(
+        await expect(() =>
           result.current[1].addFieldConfig('name', () => ({})),
-        ).rejects.toEqual(
+        ).toThrow(
           Error('name already exists. Please use name.updateConfig instead'),
         );
       });
     });
     it('should invalidate a valid form if default value in invalid', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', () => ({
@@ -467,10 +423,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].newlyAddedField.isValid).toBe(false);
     });
     it('should have have value field set', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', () => ({
@@ -485,10 +438,7 @@ describe('Unit Test cases for use-form hook', () => {
   });
   describe('Cases for removing a field', () => {
     it('should be able to delete field', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[0].name).toBeDefined();
       await act(async () => {
         await result.current[1].removeFieldConfig('name', () => ({}));
@@ -496,10 +446,9 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name).toBeUndefined();
     });
     it('should be a valid form when invalid field is removed', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { required: true } }),
       );
-      await waitForNextUpdate();
       expect(result.current[1].isValid).toBe(false);
       await act(async () => {
         await result.current[1].removeFieldConfig('name', () => ({}));
@@ -512,10 +461,7 @@ describe('Unit Test cases for use-form hook', () => {
       const mockedWarn = jest.fn();
       // eslint-disable-next-line no-console
       console.warn = mockedWarn;
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       await act(async () => {
         await result.current[1].removeFieldConfig('randomField', () => ({}));
       });
@@ -528,10 +474,9 @@ describe('Unit Test cases for use-form hook', () => {
   });
   describe('Cases for reseting the form', () => {
     it('should reset the values', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { defaultValue: 'hello' } }),
       );
-      await waitForNextUpdate();
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
         await result.current[0].name.setValue('test');
@@ -543,10 +488,9 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.value).toBe('hello');
     });
     it('should reset the errors', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: { required: true } }),
       );
-      await waitForNextUpdate();
       expect(result.current[1].isValid).toBe(false);
       await act(async () => {
         await result.current[0].name.setValue('test');
@@ -558,10 +502,7 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(false);
     });
     it('should remove the added fields', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm({ name: {} }),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm({ name: {} }));
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', () => ({
@@ -577,10 +518,9 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[1].isValid).toBe(true);
     });
     it('should add back the removed fields', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
+      const { result } = renderHook(() =>
         useForm({ name: {}, other: { defaultValue: 'hello' } }),
       );
-      await waitForNextUpdate();
       expect(result.current[1].isValid).toBe(true);
       await act(async () => {
         await result.current[1].removeFieldConfig('other');
@@ -598,10 +538,7 @@ describe('Unit Test cases for use-form hook', () => {
   describe('Cases for immutabilty of the form config', () => {
     const formConfig = { name: {} };
     it('should have field config added', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useForm(formConfig),
-      );
-      await waitForNextUpdate();
+      const { result } = renderHook(() => useForm(formConfig));
       await act(async () => {
         await result.current[1].addFieldConfig('newlyAddedField', () => ({}));
       });

@@ -43,7 +43,7 @@ const PER_FIELD_CONFIG = {
     },
     optional: true,
   },
-  validationFns: { type: 'array', items: 'function', optional: true },
+  validate: { type: 'function', optional: true },
   extraInfo: { type: 'any', optional: true },
 };
 

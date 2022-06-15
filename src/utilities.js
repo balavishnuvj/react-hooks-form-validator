@@ -29,21 +29,12 @@ export function getDefaultErrors(formFieldConfig) {
   return defaultErrors;
 }
 
-export async function getFieldError(formState, fieldName, formFieldConfig) {
-  const { required, min, max, patterns, validationFns } = formFieldConfig[
-    fieldName
-  ];
+export function getFieldError(formState, fieldName, formFieldConfig) {
+  const { required, min, max, patterns, validate } = formFieldConfig[fieldName];
   const fieldValue = formState[fieldName];
-  if (validationFns && validationFns.length) {
+  if (validate) {
     try {
-      const validationResults = await Promise.all(
-        validationFns.map((asyncValidationFn) =>
-          asyncValidationFn(formState[fieldName], formState),
-        ),
-      );
-      const [valid, errorMsg] = validationResults.find(
-        ([validationStatus]) => !validationStatus,
-      ) || [true];
+      const [valid, errorMsg] = validate(formState[fieldName], formState);
       if (!valid) {
         return errorMsg || 'Invalid input';
       }
@@ -122,13 +113,11 @@ export function getFormValidity(formErrors) {
   );
 }
 
-export async function getFormErrors(fieldConfig, formValues) {
+export function getFormErrors(fieldConfig, formValues) {
   const errors = {};
   const allFieldsNames = Object.keys(fieldConfig);
-  const validationResults = await Promise.all(
-    allFieldsNames.map(async (fieldName) =>
-      getFieldError(formValues, fieldName, fieldConfig),
-    ),
+  const validationResults = allFieldsNames.map((fieldName) =>
+    getFieldError(formValues, fieldName, fieldConfig),
   );
   validationResults.forEach((errorMsg, index) => {
     const fieldName = allFieldsNames[index];
