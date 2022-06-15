@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v3.1.0...v5.0.0) (2022-06-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* removes support for async validations, accepts single function `validate` instead of `validationFns`
+
+### Features
+
+* removes async function ([70af7fd](https://github.com/balavishnuvj/react-hooks-form-validator/commit/70af7fd5d4559bf5e9b6d7f26f062e5eeff91ad7))
+
 ## [4.0.0](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v3.1.0...v4.0.0) (2022-06-15)
 
 
