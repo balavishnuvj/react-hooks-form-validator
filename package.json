@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-form-validator",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "One react hook for all your form validations",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "test": "jest"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "src/*"
   ],
   "repository": "https://github.com/balavishnuvj/react-hooks-form-validator.git",
   "homepage": "https://github.com/balavishnuvj/react-hooks-form-validator",
