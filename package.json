@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-form-validator",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "description": "One react hook for all your form validations",
   "main": "index.js",
   "scripts": {
