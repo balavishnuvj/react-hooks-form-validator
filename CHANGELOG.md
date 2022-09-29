@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v5.1.0...v5.2.0) (2022-09-29)
+
+
+### Features
+
+* updated fieldValue to check length after trimming ([bd6f7b2](https://github.com/balavishnuvj/react-hooks-form-validator/commit/bd6f7b295b68446232ba32f5d014e1cb8a409f19))
+
 ## [5.1.0](https://github.com/balavishnuvj/react-hooks-form-validator/compare/v5.0.2...v5.1.0) (2022-06-23)
 
 
