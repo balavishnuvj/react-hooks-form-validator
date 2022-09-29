@@ -55,11 +55,18 @@ describe('Unit Test cases for use-form hook', () => {
       const { result } = renderHook(() => useForm({ name: { min: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
-      const incorrectSpaceText = '     text';
+      const incorrectSpaceTextAtStart = '     text';
       await act(async () => {
-        await result.current[0].name.setValue(incorrectSpaceText);
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
       });
-      expect(result.current[0].name.value).toBe(incorrectSpaceText);
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
       expect(result.current[0].name.isValid).toBe(false);
       expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'text';
@@ -87,6 +94,26 @@ describe('Unit Test cases for use-form hook', () => {
       );
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      expect(result.current[0].name.errorMsg).toBe(
+        'This is custom error message',
+      );
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      expect(result.current[0].name.errorMsg).toBe(
+        'This is custom error message',
+      );
       const incorrectText = 'text';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
@@ -109,6 +136,20 @@ describe('Unit Test cases for use-form hook', () => {
       const { result } = renderHook(() => useForm({ name: { max: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtEnd = 'textWithSpace    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'superlongtext';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
@@ -134,6 +175,23 @@ describe('Unit Test cases for use-form hook', () => {
       );
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtEnd = 'textWithSpace    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      expect(result.current[0].name.errorMsg).toBe(
+        'This is custom error message',
+      );
       const incorrectText = 'superlongtext';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
