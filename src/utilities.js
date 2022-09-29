@@ -58,8 +58,11 @@ export function getFieldError(formState, fieldName, formFieldConfig) {
       errorMsg = min.errorMsg;
       minLength = min.length;
     }
-    if (fieldValue.length < minLength) {
-      return errorMsg || `Atleast ${min} charecters required`;
+    if (
+      typeof fieldValue === 'string' &&
+      fieldValue.trim().length < minLength
+    ) {
+      return errorMsg || `Atleast ${min} characters required`;
     }
   }
   if (max) {
@@ -69,8 +72,8 @@ export function getFieldError(formState, fieldName, formFieldConfig) {
       errorMsg = max.errorMsg;
       maxLength = max.length;
     }
-    if (fieldValue.length > maxLength) {
-      return errorMsg || `Should not be more than ${max} chatacters`;
+    if (fieldValue.trim().length > maxLength) {
+      return errorMsg || `Should not be more than ${max} characters`;
     }
   }
   if (patterns) {
