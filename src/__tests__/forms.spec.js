@@ -70,6 +70,39 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
     });
+    it('should validate field having a minimum length limit if spaces added', async () => {
+      const { result } = renderHook(() => useForm({ name: { min: 5 } }));
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const correctTextWithSpaceAtEnd = 'textwithSpace         ';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtEnd);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const correctTextWithSpaceAtStart = '      superlongtext';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtStart);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+    });
     it('should validate field having a minimum length(custom error message)', async () => {
       const { result } = renderHook(() =>
         useForm({
@@ -98,6 +131,46 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
     });
+
+    it('should validate field having a minimum length limit if spaces added(custom error message)', async () => {
+      const { result } = renderHook(() =>
+        useForm({
+          name: {
+            min: { length: 5, errorMsg: 'This is custom error message' },
+          },
+        }),
+      );
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const correctTextWithSpaceAtEnd = 'textwithSpace         ';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtEnd);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const correctTextWithSpaceAtStart = '      superlongtext';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtStart);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+    });
     it('should validate field having a maximum length limit', async () => {
       const { result } = renderHook(() => useForm({ name: { max: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
@@ -116,6 +189,39 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.value).toBe(correctText);
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+    });
+    it('should validate field having a maximum length limit if spaces added', async () => {
+      const { result } = renderHook(() => useForm({ name: { max: 5 } }));
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const correctTextWithSpaceAtEnd = 'textwithSpace         ';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      const correctTextWithSpaceAtStart = '      superlongtext';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtStart);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
     });
     it('should validate field having a maximum length limit(custom error message)', async () => {
       const { result } = renderHook(() =>
@@ -144,6 +250,52 @@ describe('Unit Test cases for use-form hook', () => {
       expect(result.current[0].name.value).toBe(correctText);
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+    });
+
+    it('should validate field having a maximum length limit if spaces added(custom error message)', async () => {
+      const { result } = renderHook(() =>
+        useForm({
+          name: {
+            max: { length: 5, errorMsg: 'This is custom error message' },
+          },
+        }),
+      );
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtStart = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtStart);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtStart);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceTextAtEnd = 'text    ';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceTextAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceTextAtEnd);
+      expect(result.current[0].name.isValid).toBe(true);
+      expect(result.current[1].isValid).toBe(true);
+      const correctTextWithSpaceAtEnd = 'textwithSpace         ';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtEnd);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtEnd);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      expect(result.current[0].name.errorMsg).toBe(
+        'This is custom error message',
+      );
+      const correctTextWithSpaceAtStart = '      superlongtext';
+      await act(async () => {
+        await result.current[0].name.setValue(correctTextWithSpaceAtStart);
+      });
+      expect(result.current[0].name.value).toBe(correctTextWithSpaceAtStart);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
+      expect(result.current[0].name.errorMsg).toBe(
+        'This is custom error message',
+      );
     });
     it('should validate field having a patten match', async () => {
       const { result } = renderHook(() =>
