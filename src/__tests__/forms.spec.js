@@ -55,6 +55,13 @@ describe('Unit Test cases for use-form hook', () => {
       const { result } = renderHook(() => useForm({ name: { min: 5 } }));
       expect(result.current[0].name.isValid).toBe(true);
       expect(result.current[1].isValid).toBe(true);
+      const incorrectSpaceText = '     text';
+      await act(async () => {
+        await result.current[0].name.setValue(incorrectSpaceText);
+      });
+      expect(result.current[0].name.value).toBe(incorrectSpaceText);
+      expect(result.current[0].name.isValid).toBe(false);
+      expect(result.current[1].isValid).toBe(false);
       const incorrectText = 'text';
       await act(async () => {
         await result.current[0].name.setValue(incorrectText);
